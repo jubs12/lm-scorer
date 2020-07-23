@@ -18,7 +18,7 @@ class AutoLMScorer:
 
     @classmethod
     def from_pretrained(cls, model_name: str, **kwargs: Any) -> LMScorer:
-        if 'gp2' not in model_name:
+        if 'gpt2' not in model_name:
             raise ValueError(
                 "Model name must be gpt2."
             )
