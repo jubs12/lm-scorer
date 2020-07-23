@@ -7,7 +7,7 @@ from .gpt2 import GPT2LMScorer
 
 
 class AutoLMScorer:
-    MODEL_CLASSES = [GPT2LMScorer]
+    MODEL_CLASSES = "pierreguillou/gpt2-small-portuguese"
 
     def __init__(self):
         raise EnvironmentError(
@@ -18,14 +18,12 @@ class AutoLMScorer:
 
     @classmethod
     def from_pretrained(cls, model_name: str, **kwargs: Any) -> LMScorer:
-        for model_class in cls.MODEL_CLASSES:
-            if model_name not in model_class.supported_model_names():
-                continue
-            return model_class(model_name, **kwargs)
-        raise ValueError(
-            "Unrecognized model name."
-            "Can be one of: %s" % ", ".join(cls.supported_model_names()),
-        )
+        if 'gp2' not in model_name:
+            raise ValueError(
+                "Model name must be gpt2."
+            )
+        
+        return GPT2LMScorer(model_name, **kwargs)
 
     @classmethod
     def supported_model_names(cls) -> Iterable[str]:
